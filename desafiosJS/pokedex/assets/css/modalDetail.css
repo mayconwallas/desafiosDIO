@@ -1,0 +1,64 @@
+.janelaModal {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+}
+
+.janelaModal.abrir {
+    display: flex;
+}
+
+
+@keyframes abrirmodal {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -20px, -5px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0, 0);
+    }
+}
+
+.abrir .modal{
+    animation: abrirmodal .8s;
+}
+
+.modal {
+    width: 60%;
+    min-width: 250px;
+    min-height: 400px;
+    background-color: #ffffff96;
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.fechar {
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    border-radius: 50%;
+    border: none;
+    background-color: red;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fechar:hover {
+    background-color: rgba(255, 0, 0, 0.555);
+    color: #ffffff7e;
+    transition: .5s;
+    cursor: pointer;
+}
