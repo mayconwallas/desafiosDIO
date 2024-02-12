@@ -24,8 +24,8 @@
     <main>
         <section class="content">
             <h1>Pokedex</h1>
-            <ol class="pokemons">
-                <li class="pokemon">
+            <ol id="pokemonList" class="pokemons">
+                <!-- <li class="pokemon">
                     <span class="number">#001</span>
                     <span class="name">Bulbasaur</span>
                     
@@ -38,9 +38,15 @@
 
                         <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/1.gif" alt="">
                     </div>
-                </li>
-                
+                </li> -->
             </ol>
+
+
+            <div class="paginacao">
+                <button id="loadMoreButton" type="button">
+                    Load More
+                </button>
+            </div>
         </section>
     </main>
     <footer>
@@ -48,6 +54,8 @@
 
 
     <!-- Script Projeto -->
+    <script src="./assets/js/pokemon-model.js"></script>
+    <script src="./assets/js/poke-api.js" ></script>
     <script src="./assets/js/main.js"></script>
 </body>
 </html>
