@@ -15,7 +15,6 @@
     display: flex;
 }
 
-
 @keyframes abrirmodal {
     from {
         opacity: 0;
@@ -62,3 +61,10 @@
     transition: .5s;
     cursor: pointer;
 }
+
+
+
+
+/*Css detalhes pokemon modal*/
+
+

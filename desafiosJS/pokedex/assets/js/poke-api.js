@@ -1,6 +1,8 @@
 const pokeApi = {};
 
 function convertPokemonApiDetailToPokemon(pokeDetail) {
+    // console.log(pokeDetail)
+    
     const pokemon = new Pokemon();
     pokemon.number = pokeDetail.id;
     pokemon.name = pokeDetail.name;
@@ -10,10 +12,10 @@ function convertPokemonApiDetailToPokemon(pokeDetail) {
     pokemon.types = types;
     pokemon.type = type;
 
-    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default;
-    
+    pokemon.photo = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.number}.gif`;
     return pokemon;
 }
+
 
 pokeApi.getPokemonDetail = (pokemon) => {
     return fetch(pokemon.url)

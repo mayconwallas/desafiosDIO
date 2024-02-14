@@ -1,9 +1,12 @@
 const pokemonList = document.getElementById('pokemonList');
 const loadMoreButton = document.getElementById('loadMoreButton');
+const backButton = document.getElementById('backButton');
 const maxRecors = 151;
-const limit = 10;
+const limit = 9;
 let offset = 0;
 let formatoNumberPokemon;
+let idChar = 0;
+let isFirstLoad = true; 
 
 function loadPokemonItens(offset, limit) {
     pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
@@ -22,7 +25,7 @@ function loadPokemonItens(offset, limit) {
             </div>
         </li>
         `).join('');
-        pokemonList.innerHTML += newHtml
+        pokemonList.innerHTML = newHtml
     })
 
 }
@@ -36,12 +39,41 @@ loadMoreButton.addEventListener('click', () => {
         const newLimit = maxRecors - offset
         loadPokemonItens(offset, newLimit);
 
-        loadMoreButton.parentElement.removeChild(loadMoreButton);
+        loadMoreButton.style.display = 'none';
     } else {
         loadPokemonItens(offset, limit);
     }
 
+    if (isFirstLoad) { // Se for a primeira vez que a tela é atualizada, exiba o botão de voltar
+        isFirstLoad = false;
+        backButton.style.display = 'inline'; // Exibe o botão de voltar após a primeira atualização da tela
+    }
+
 })
+
+backButton.addEventListener('click', () => {
+    offset -= limit;
+    const qtdRecord = offset + limit;
+    loadMoreButton.style.display = 'inline';
+    if (offset <= 0) {
+        backButton.style.display = 'none';
+        isFirstLoad = true;
+    }
+    
+    if (qtdRecord >= maxRecors) {
+        const newLimit = maxRecors - offset
+        loadPokemonItens(offset, newLimit);
+
+        // backButton.parentElement.removeChild(backButton);
+    } else {
+        loadPokemonItens(offset, limit);
+        
+    }
+
+})
+
+
+
 
 function formatoNumeroPokemon(pokemon) {
     let formatoNumberPokemon; 
@@ -67,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
    pokeLista.addEventListener("click", function(e) {
     if(e.target.tagName === "BUTTON") {
         const idChar = e.target.getAttribute("value");
-        console.log("Valor do item clicado:", idChar);
+        console.log(numCharPokemon(idChar))
         abrirModal()
     }
    }) 
@@ -77,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function abrirModal() {
     const modal = document.getElementById('janelaModal');
     modal.classList.add('abrir');
-
+    console.log(convertPokemonApiDetailToPokemon());
     modal.addEventListener('click', (e) => {
         if (e.target.id == 'fechar' || e.target.id == 'janelaModal') {
             modal.classList.remove('abrir');
@@ -87,9 +119,21 @@ function abrirModal() {
 
 
 
+// https://pokeapi.co/api/v2/pokemon/1
 
+       
+function numCharPokemon(numeroPokemon) {
+    const url = `https://pokeapi.co/api/v2/pokemon/${numeroPokemon}`
 
-        
+    return fetch(url)
+        .then((response) => response.json())
+        .catch((error) => {
+            console.log(error.error);
+        })
+}
+
+console.log(numCharPokemon(3))
+
     
     // -----forma longa de fazer o map com join----- 
     // const newList = pokemonList.map((pokemon) => {
