@@ -13,6 +13,13 @@ function convertPokemonApiDetailToPokemon(pokeDetail) {
     pokemon.type = type;
 
     pokemon.photo = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.number}.gif`;
+
+    // /*1 mudança relevante*/
+    // for (let i = 0; i < 6; i++) {
+    //     pokemon.ataque.push(pokeDetail.moves[i].move.name);
+        
+    // }
+
     return pokemon;
 }
 

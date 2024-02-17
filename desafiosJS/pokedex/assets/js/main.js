@@ -1,4 +1,10 @@
 const pokemonList = document.getElementById('pokemonList');
+
+
+/*mudança relevante*/
+const pokemonModalDetalhe = document.getElementById("pokemonListDetail");
+
+
 const loadMoreButton = document.getElementById('loadMoreButton');
 const backButton = document.getElementById('backButton');
 const maxRecors = 151;
