@@ -4,6 +4,7 @@ class Pokemon {
     type;
     types = [];
     photo;
-    ataque = [];
+    ataque;
+    ataques = [];
 }
 

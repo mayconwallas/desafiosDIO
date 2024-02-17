@@ -14,10 +14,15 @@ function convertPokemonApiDetailToPokemon(pokeDetail) {
 
     pokemon.photo = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${pokemon.number}.gif`;
 
-    // /*1 mudança relevante*/
-    // for (let i = 0; i < 6; i++) {
-    //     pokemon.ataque.push(pokeDetail.moves[i].move.name);
-        
+    /*1 mudança relevante*/
+    const ataques = pokeDetail.moves.map((teste) => teste.move.name)
+    pokemon.ataques = ataques;
+
+    //console.log(ataques)
+
+    /* mudança que gera o erro*/
+    // for (let j = 0; j < 6; j++) {
+    //     pokemon.ataques.push(pokeDetail.moves[j].move.name);
     // }
 
     return pokemon;

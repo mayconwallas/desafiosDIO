@@ -1,10 +1,5 @@
 const pokemonList = document.getElementById('pokemonList');
-
-
-/*mudança relevante*/
 const pokemonModalDetalhe = document.getElementById("pokemonListDetail");
-
-
 const loadMoreButton = document.getElementById('loadMoreButton');
 const backButton = document.getElementById('backButton');
 const maxRecors = 151;
@@ -36,6 +31,47 @@ function loadPokemonItens(offset, limit) {
 
 }
 
+function loadPokemonModalDetalhe(idChar) {
+    const teste = pokeApi.getPokemons(idChar - 1, 1).then((pokemons = []) => {
+      const Html = pokemons
+        .map(
+          (pokemon) =>
+            `<li class="pokemon ${pokemon.type}">
+              <span class="number">${
+                formatoNumeroPokemon(pokemon) + pokemon.number
+              }</span>
+              <span class="name">${pokemon.name}</span>
+              <div class="detail">
+              <ol class="types">
+                  ${pokemon.types
+                    .map((type) => `<li class="type ${type}">${type}<li>`)
+                    .join("")}
+              </ol>
+                  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/${
+                    pokemon.number
+                  }.gif" alt="">
+              </div>
+              <div class="info">
+                  <ul class="types">
+                      <h2>ataques</h2>
+                      <li class="liInfo">${testeFor(pokemon)}<li>
+                  </ul>
+              </div>
+          </li>`
+        )
+        .join("");
+  
+        pokemonModalDetalhe.innerHTML = Html;
+    });
+  }
+
+function testeFor(pokemon) {
+    const ataque = []
+    for (let i = 0; i < 6; i++) {
+      ataque.push(pokemon.ataques[i]) 
+    } 
+    return ataque.join('</br>')
+}
 loadPokemonItens(offset, limit)
 
 loadMoreButton.addEventListener('click', () => {
@@ -50,9 +86,9 @@ loadMoreButton.addEventListener('click', () => {
         loadPokemonItens(offset, limit);
     }
 
-    if (isFirstLoad) { // Se for a primeira vez que a tela é atualizada, exiba o botão de voltar
+    if (isFirstLoad) {
         isFirstLoad = false;
-        backButton.style.display = 'inline'; // Exibe o botão de voltar após a primeira atualização da tela
+        backButton.style.display = 'inline';
     }
 
 })
@@ -69,17 +105,11 @@ backButton.addEventListener('click', () => {
     if (qtdRecord >= maxRecors) {
         const newLimit = maxRecors - offset
         loadPokemonItens(offset, newLimit);
-
-        // backButton.parentElement.removeChild(backButton);
     } else {
         loadPokemonItens(offset, limit);
-        
     }
 
 })
-
-
-
 
 function formatoNumeroPokemon(pokemon) {
     let formatoNumberPokemon; 
@@ -94,10 +124,6 @@ function formatoNumeroPokemon(pokemon) {
     return formatoNumberPokemon
 }
 
-
-
-
-
 //-------------- Modificações --------------
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -105,7 +131,8 @@ document.addEventListener("DOMContentLoaded", function() {
    pokeLista.addEventListener("click", function(e) {
     if(e.target.tagName === "BUTTON") {
         const idChar = e.target.getAttribute("value");
-        console.log(numCharPokemon(idChar))
+        //console.log(numCharPokemon(idChar))
+        loadPokemonModalDetalhe(idChar);
         abrirModal()
     }
    }) 
@@ -115,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function abrirModal() {
     const modal = document.getElementById('janelaModal');
     modal.classList.add('abrir');
-    console.log(convertPokemonApiDetailToPokemon());
+    //console.log(convertPokemonApiDetailToPokemon());
     modal.addEventListener('click', (e) => {
         if (e.target.id == 'fechar' || e.target.id == 'janelaModal') {
             modal.classList.remove('abrir');
@@ -123,11 +150,8 @@ function abrirModal() {
     })
 }
 
-
-
 // https://pokeapi.co/api/v2/pokemon/1
 
-       
 function numCharPokemon(numeroPokemon) {
     const url = `https://pokeapi.co/api/v2/pokemon/${numeroPokemon}`
 
@@ -137,23 +161,3 @@ function numCharPokemon(numeroPokemon) {
             console.log(error.error);
         })
 }
-
-console.log(numCharPokemon(3))
-
-    
-    // -----forma longa de fazer o map com join----- 
-    // const newList = pokemonList.map((pokemon) => {
-    //     return convertPokemonToLi(pokemon)
-    // })
-
-    // const newHtml = newList.join('');
-
-    
-    // ------map na mão----
-    // for (let i = 0; i < pokemonList.length; i++) {
-    //     const pokemon = pokemonList[i];  
-    //     convertPokemonToLi(pokemon);
-    //     newListaPokemons.push(convertPokemonToLi (pokemon))
-    //     }
-        // pokemonOl.innerHTML += newHtml
-
